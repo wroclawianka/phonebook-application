@@ -19,9 +19,9 @@ public enum Actions {
         return name;
     }
 
-    public static Actions getEnumByString(String value) {
+    public static Actions getEnumByName(String name) {
         for (Actions a : Actions.values()) {
-            if (value.equals(a.name)) {
+            if (name.equals(a.name)) {
                 return a;
             }
         }

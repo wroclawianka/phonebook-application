@@ -33,8 +33,7 @@ public class PhoneBookDataAccess {
         List<Entry> entries = get(value);
         if (entries.size() == 1) {
             return entries.get(0);
-        } else {
-            return null;
         }
+        return null;
     }
 }

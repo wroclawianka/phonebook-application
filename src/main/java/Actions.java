@@ -6,9 +6,10 @@ public enum Actions {
     GET("g"),
     ADD("a"),
     REMOVE("r"),
-    LIST("l");
+    LIST("l"),
+    ERROR("e");
 
-    private final String name;
+    public final String name;
 
     Actions(String value) {
         name = value;
@@ -16,5 +17,14 @@ public enum Actions {
 
     public String getName() {
         return name;
+    }
+
+    public static Actions getEnumByString(String value) {
+        for (Actions a : Actions.values()) {
+            if (value.equals(a.name)) {
+                return a;
+            }
+        }
+        throw new IllegalArgumentException();
     }
 }

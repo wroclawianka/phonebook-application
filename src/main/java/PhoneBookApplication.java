@@ -20,7 +20,7 @@ public class PhoneBookApplication {
 
             System.out.println("Can I help you more? Type y if yes");
         }
-        while (phoneBookBusinessLogic.ifMoreAction(sc.nextLine()));
+        while (isMoreAction(sc.nextLine()));
         System.exit(0);
     }
 
@@ -29,7 +29,7 @@ public class PhoneBookApplication {
         Actions action;
 
         try {
-            action = Actions.getEnumByString(inputValue);
+            action = Actions.getEnumByName(inputValue);
         } catch (IllegalArgumentException e) {
             action = Actions.ERROR;
         }
@@ -95,7 +95,7 @@ public class PhoneBookApplication {
             String phoneNumber = phoneBookBusinessLogic.getNumberByName(name);
             System.out.println(phoneNumber);
         } catch (NullPointerException e) {
-            System.out.println("Entity not found");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -126,15 +126,24 @@ public class PhoneBookApplication {
             list.forEach(entry -> System.out.println(entry.getName() + " " + entry.phoneNumber));
 
         } catch (IndexOutOfBoundsException e) {
-            System.out.println("Your phone book is empty. Do you want to set your first empty? y - yes");
-            String inputValue = sc.nextLine();
-            if (phoneBookBusinessLogic.ifMoreAction(inputValue)) {
-                add();
-            }
+            System.out.println(e.getMessage());
+            addFirstEntry();
+        }
+    }
+
+    private static void addFirstEntry() {
+        System.out.print("Do you want to set your first empty? y - yes");
+        String inputValue = sc.nextLine();
+        if (isMoreAction(inputValue)) {
+            add();
         }
     }
 
     private static void error() {
         System.out.println("Command not found.");
+    }
+
+    private static boolean isMoreAction(String value) {
+        return value.toLowerCase().equals("y");
     }
 }

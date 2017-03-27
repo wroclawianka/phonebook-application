@@ -12,14 +12,10 @@ public class PhoneBookBusinessLogic {
         this.phoneBook = new PhoneBookDataAccess();
     }
 
-    public boolean ifMoreAction(String value) {
-        return value.toLowerCase().equals("y");
-    }
-
     public String getNumberByName(String name) {
         Entry entry = phoneBook.getEntry(name);
         if (entry == null) {
-            throw new NullPointerException();
+            throw new NullPointerException("Entity not found");
         }
         return entry.getPhoneNumber();
     }
@@ -39,7 +35,7 @@ public class PhoneBookBusinessLogic {
                 .collect(Collectors.toList());
 
         if (list.size() == 0) {
-            throw new IndexOutOfBoundsException();
+            throw new IndexOutOfBoundsException("Your phone book is empty.");
         }
         return list;
     }
@@ -68,16 +64,10 @@ public class PhoneBookBusinessLogic {
     }
 
     private boolean isLengthOfNameValid(String name) {
-        if (isLengthValid(name, 50)) {
-            return true;
-        }
-        return false;
+        return isLengthValid(name, 50);
     }
 
     private boolean isNumberValid(String value) {
-        if (isLengthValid(value, 15)) {
-            return true;
-        }
-        return false;
+        return isLengthValid(value, 15);
     }
 }
